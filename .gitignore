@@ -34,3 +34,4 @@ yarn-error***REMOVED***log*
 ****REMOVED***tsbuildinfo
 next-env***REMOVED***d***REMOVED***ts
 venv/
+api/__pycache__/*
