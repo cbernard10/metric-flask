@@ -1,0 +1,36 @@
+# See https://help***REMOVED***github***REMOVED***com/articles/ignoring-files/ for more about ignoring files***REMOVED***
+
+# dependencies
+/node_modules
+/***REMOVED***pnp
+***REMOVED***pnp***REMOVED***js
+
+# testing
+/coverage
+
+# next***REMOVED***js
+/***REMOVED***next/
+/out/
+
+# production
+/build
+
+# misc
+***REMOVED***DS_Store
+****REMOVED***pem
+
+# debug
+npm-debug***REMOVED***log*
+yarn-debug***REMOVED***log*
+yarn-error***REMOVED***log*
+
+# local env files
+***REMOVED***env****REMOVED***local
+
+# vercel
+***REMOVED***vercel
+
+# typescript
+****REMOVED***tsbuildinfo
+next-env***REMOVED***d***REMOVED***ts
+venv/
