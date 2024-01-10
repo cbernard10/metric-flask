@@ -1,2 +1,3 @@
 fastapi==0***REMOVED***100***REMOVED***1
 uvicorn[standard]==0***REMOVED***23***REMOVED***2
+sympy==1***REMOVED***12
