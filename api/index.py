@@ -10,7 +10,6 @@ origins = [
 
 app = FastAPI()
 
-
 app***REMOVED***add_middleware(
     CORSMiddleware,
     allow_origins=origins,
