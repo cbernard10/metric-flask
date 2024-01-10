@@ -9,6 +9,8 @@ function MetricContainer() {
   const [metricConstants, setMetricConstants] = useState({});
   const [coordinates, setCoordinates] = useState(["x", "y", "z"]);
 
+  const [collapsed, setCollapsed] = useState(false);
+
   const handleSubmit = async (e) => {
     e***REMOVED***preventDefault();
     console***REMOVED***log("entries", entries);
@@ -30,15 +32,16 @@ function MetricContainer() {
   };
 
   return (
-    <div className="flex flex-row gap-12">
-      <div className="flex flex-col gap-6">
+    <div className="flex flex-row gap-12 py-72 min-h-screen">
+      
+      <div className="flex flex-col gap-6 ">
         <form className="bg-black flex flex-row gap-4 items-center justify-between">
           <label>Coordinates</label>
           <div className="flex flex-row">
             {coordinates***REMOVED***map((coordinate, index) => {
               return (
                 <input
-                  className="w-16 border-[1px] py-2 border-white bg-neutral-900 flex justify-center items-center text-center"
+                  className="w-16 border-[1px] py-2 border-white bg-neutral-900 flex justify-center items-center text-center font-mono"
                   key={index}
                   type="text"
                   value={coordinate}
@@ -57,13 +60,13 @@ function MetricContainer() {
           className="flex flex-col gap-4 items-center"
           onSubmit={handleSubmit}
         >
-          <div className="grid grid-cols-3 grid-rows-3 border-2 border-white w-[500px] h-[500px]">
+          <div className="grid grid-cols-3 grid-rows-3  w-[500px] h-[500px]">
             {entries***REMOVED***map((entry, index) => {
               return (
                 <input
                   className="
-                    border-2 border-white bg-neutral-900 flex flex-row justify-center 
-                    items-center text-center text-xl font-mono resize-none break-all h-full
+                    border-2 border-neutral-600 bg-neutral-900 flex flex-row justify-center 
+                    items-center text-center text-xl font-mono resize-none break-all h-full outline-none focus:bg-violet-950
                   "
                   key={index}
                   type="text"
@@ -77,16 +80,25 @@ function MetricContainer() {
               );
             })}
           </div>
-          <button type="submit">Compute</button>
+          <button
+            type="submit"
+            className="border-2 border-purple-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-purple-950 to-purple-800
+          hover:from-purple-800 hover:to-purple-950 hover:border-purple-800 self-end"
+          >
+            Compute
+          </button>
         </form>
       </div>
 
-      <div className="grid grid-cols-1 items-center justify-center text-center gap-6 max-w-[800px] mx-auto">
-        <div className="font-mono text-start">
-          <pre className="text-white">
-            {JSON***REMOVED***stringify(metricConstants, null, 2)}
-          </pre>
-        </div>
+      <div className="gap-6 w-[800px] mx-auto flex flex-col">
+        <button className="self-end border-2 border-transparent hover:border-neutral-600 bg-neutral-800 font-mono w-10 h-10" onClick={() => setCollapsed((state) => !state)}>{collapsed ? "+" : "-"}</button>
+        {!collapsed && (
+          <div className="font-mono text-start">
+            <pre className="text-white">
+              {JSON***REMOVED***stringify(metricConstants, null, 2)}
+            </pre>
+          </div>
+        )}
       </div>
     </div>
   );

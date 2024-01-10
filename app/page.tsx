@@ -8,7 +8,7 @@ export default function Home() {
     pingService();
   };
   return (
-    <main className="flex flex-col items-center justify-center h-screen gap-12">
+    <main className="flex flex-col items-center justify-center gap-12">
       {/* <span>{lastJsonMessage}</span> */}
       {/* <div className="text-5xl">Input metric</div> */}
       <MetricContainer />
