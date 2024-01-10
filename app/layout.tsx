@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "***REMOVED***/globals***REMOVED***css";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +17,10 @@ export default function RootLayout({
   children: React***REMOVED***ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-black text-white">
+    <html
+      lang="en"
+      className={`${GeistSans***REMOVED***variable} ${GeistMono***REMOVED***variable} bg-black text-white`}
+    >
       <body className={`${inter***REMOVED***className}`}>{children}</body>
     </html>
   );

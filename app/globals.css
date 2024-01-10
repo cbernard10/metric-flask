@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+pre {
+  font-size: 16px;
+  overflow: auto;
+  padding: 10px;
+  /* background-color: #f8f8f8;
+  border: 1px solid #ddd; */
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5***REMOVED***5+ */
+}
+
+input {
+  white-space: pre-line;
+}
