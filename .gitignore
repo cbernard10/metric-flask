@@ -1,5 +1,9 @@
 # See https://help***REMOVED***github***REMOVED***com/articles/ignoring-files/ for more about ignoring files***REMOVED***
 
+
+venv/
+api/__pycache__/
+
 # dependencies
 /node_modules
 /***REMOVED***pnp
@@ -33,5 +37,3 @@ yarn-error***REMOVED***log*
 # typescript
 ****REMOVED***tsbuildinfo
 next-env***REMOVED***d***REMOVED***ts
-venv/
-api/__pycache__/*
