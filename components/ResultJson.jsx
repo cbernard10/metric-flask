@@ -6,7 +6,13 @@ function ResultJson({ metricConstants, setBuffer }) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="gap-6 w-[800px] mx-auto flex flex-col items-start">
+    <div className="gap-6 
+    w-[300px] leading-6 
+    md:w-[400px] md:leading-7
+    lg:w-[500px] 
+    xl:w-[800px] 
+    
+    mx-auto flex flex-col items-start">
       <div className="flex flex-row items-center gap-4">
         <button
           className="border-2 border-transparent hover:border-neutral-600 bg-neutral-800 font-mono w-10 h-10"
@@ -41,8 +47,8 @@ function ResultJson({ metricConstants, setBuffer }) {
         </button>
       </div>
       {!collapsed && (
-        <div className="font-mono text-start  bg-neutral-950">
-          <pre className="text-white">
+        <div className="font-mono text-start bg-neutral-950 w-full">
+          <pre className="text-white text-xs md:text-sm lg:text-base xl:text-lg">
             {JSON***REMOVED***stringify(metricConstants, null, 2)}
           </pre>
         </div>

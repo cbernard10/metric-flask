@@ -99,7 +99,7 @@ function MetricContainer() {
   };
 
   return (
-    <div className="flex xl:flex-row flex-col gap-12 py-36 min-h-screen items-center xl:items-start">
+    <div className="flex xl:flex-row flex-col gap-12 py-16 lg:py-36 min-h-screen items-center xl:items-start">
 
       <div className="flex flex-col gap-6 xl:items-end items-center">
         <div className="flex flex-col gap-6 ">
@@ -128,7 +128,7 @@ function MetricContainer() {
             className="flex flex-col gap-4 items-center"
             onSubmit={handleSubmit}
           >
-            <div className="grid grid-cols-3 grid-rows-3 w-[500px] h-[500px] border-2 border-neutral-600">
+            <div className="grid grid-cols-3 grid-rows-3 w-[300px] h-[300px] lg:h-[400px] lg:w-[400px] xl:h-[500px] xl:w-[500px] border-2 border-neutral-600">
               {entries***REMOVED***map((entry, index) => {
                 return (
                   <div
@@ -141,7 +141,7 @@ function MetricContainer() {
               "
                   >
                     <textarea
-                      className="bg-transparent text-white outline-none text-lg"
+                      className="bg-transparent text-white outline-none lg:text-lg"
                       onInput={(e) => auto_grow(e***REMOVED***target)}
                       type="text"
                       id={index}
