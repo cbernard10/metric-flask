@@ -25,6 +25,7 @@ function MetricContainer() {
     e***REMOVED***preventDefault();
     console***REMOVED***log("entries", entries);
     const trace = await get("trace", entries);
+    setMetricConstants({})
     setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***trace }));
     setBuffer((state) => [
       ***REMOVED******REMOVED******REMOVED***state,
@@ -91,11 +92,22 @@ function MetricContainer() {
       },
     ]);
 
+    const christ2 = await get("christ2", entries, coordinates, diffMatrix***REMOVED***diffMatrix);
+    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***christ2 }));
+    setBuffer((state) => [
+      ***REMOVED******REMOVED******REMOVED***state,
+      {
+        type: "success",
+        message: "computed christoffel symbols of the second kind (ordered according to first index)",
+      },
+    ]);
+
+
     // keep last 10 lines in buffer
   };
 
   return (
-    <div className="flex flex-row gap-12 py-72 min-h-screen">
+    <div className="flex flex-row gap-12 py-36 min-h-screen">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-6 ">
           <form className="bg-black flex flex-row gap-4 items-center justify-between">

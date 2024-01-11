@@ -113,7 +113,6 @@ async def get_body(req: Request):
         sp***REMOVED***zeros(3, 3)
     ]
 
-
     if(coords == None):
         return {"christ1": "coords not found"}
     
@@ -123,11 +122,6 @@ async def get_body(req: Request):
     for i in range(3):
         for j in range(3):
             for k in range(3):
-
-                # print(coords[j])
-                # print(diffMatrix[coords[j]])
-                # A = sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[j]]))
-                # print(A)
 
                 res = 0***REMOVED***5*(sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[j]]))[k,i] + 
                            sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[i]]))[k,j] - 
@@ -144,6 +138,67 @@ async def get_body(req: Request):
             }}
 
     
-# def dg(self, i, j, k, at=None):
+@app***REMOVED***post("/api/christ2")
+async def get_body(req: Request):
+    body = await req***REMOVED***json()
+    metric, coords, diffMatrix = extractMatrixAndCoords(body)   
+    print('diffMatrix', diffMatrix)
+    
+    # christ1_arrays = [
+    #     sp***REMOVED***zeros(3, 3),
+    #     sp***REMOVED***zeros(3, 3),
+    #     sp***REMOVED***zeros(3, 3)
+    # ]
 
+    christ2_arrays = [
+        sp***REMOVED***zeros(3, 3),
+        sp***REMOVED***zeros(3, 3),
+        sp***REMOVED***zeros(3, 3)
+    ]
+
+
+    if(metric == None):
+        return {"christ2": "metric not found"}
+
+    if(coords == None):
+        return {"christ2": "coords not found"}
+    
+    if(diffMatrix == None):
+        return {"christ2": "diffMatrix not found"}
+    
+    contra_metric = metric***REMOVED***inv()
+    
+    # for i in range(3):
+    #     for j in range(3):
+    #         for k in range(3):
+
+    #             res = 0***REMOVED***5*(sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[j]]))[k,i] + 
+    #                        sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[i]]))[k,j] - 
+    #                        sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[k]]))[i,j])
+    #             res=str(sp***REMOVED***simplify(res))
+
+    #             christ1_arrays[k][i,j] = res
+                    
+    for i in range(3):
+        for j in range(3):
+            for k in range(3):
+                res = 0
+                for l in range(3):
+
+                    res += contra_metric[i,l]*(
+                        sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[k]]))[j,l] +
+                        sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[j]]))[k,l] -
+                        sp***REMOVED***Matrix(sp***REMOVED***parse_expr(diffMatrix[coords[l]]))[j,k])
+                    res = sp***REMOVED***simplify(res)
+                
+                christ2_arrays[k][i,j] = str(res)
+                christ2_arrays[k][j,i] = str(res)
+    
+    return {
+        "christ2": {
+            coords[0]: str(christ2_arrays[0]***REMOVED***tolist()), 
+            coords[1]: str(christ2_arrays[1]***REMOVED***tolist()), 
+            coords[2]: str(christ2_arrays[2]***REMOVED***tolist())
+            }}
+                    
     

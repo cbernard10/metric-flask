@@ -9,11 +9,9 @@ function Log({ buffer }) {
           <div key={index} className="flex flex-row items-center gap-2">
             <span
               className={`${
-                entry***REMOVED***type === "error" ? "bg-red-500" : "bg-green-400"
-              } w-2 h-2 rounded-full`}
-            >
-              
-            </span>
+                entry***REMOVED***type === "error" ? "bg-red-600" : "bg-emerald-600"
+              } min-w-[8px] min-h-[8px] rounded-full`}
+            ></span>
             <span className="text-neutral-200 font-mono">{entry***REMOVED***message}</span>
           </div>
         );
