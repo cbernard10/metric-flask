@@ -3,7 +3,7 @@ import React from "react";
 
 function Log({ buffer }) {
   return (
-    <div className="bg-gradient-to-b from-neutral-600 to-neutral-950 to-5% p-6">
+    <div className="bg-gradient-to-b from-neutral-600 to-neutral-950 to-5% p-6 max-w-[600px]">
       {buffer***REMOVED***slice(-10)***REMOVED***map((entry, index) => {
         return (
           <div key={index} className="flex flex-row items-center gap-2">

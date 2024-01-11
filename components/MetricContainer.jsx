@@ -62,15 +62,15 @@ function MetricContainer() {
         },
       ]);
     }
-    const transpose = await get("transpose", entries);
-    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***transpose }));
-    setBuffer((state) => [
-      ***REMOVED******REMOVED******REMOVED***state,
-      {
-        type: "success",
-        message: "computed transpose",
-      },
-    ]);
+    // const transpose = await get("transpose", entries);
+    // setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***transpose }));
+    // setBuffer((state) => [
+    //   ***REMOVED******REMOVED******REMOVED***state,
+    //   {
+    //     type: "success",
+    //     message: "computed transpose",
+    //   },
+    // ]);
     const diffMatrix = await get("diffMatrix", entries, coordinates);
     setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***diffMatrix }));
     setBuffer((state) => [
@@ -78,6 +78,16 @@ function MetricContainer() {
       {
         type: "success",
         message: "computed partial derivatives",
+      },
+    ]);
+
+    const christ1 = await get("christ1", entries, coordinates, diffMatrix***REMOVED***diffMatrix);
+    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***christ1 }));
+    setBuffer((state) => [
+      ***REMOVED******REMOVED******REMOVED***state,
+      {
+        type: "success",
+        message: "computed christoffel symbols of the first kind (ordered according to first index)",
       },
     ]);
 
