@@ -63,15 +63,7 @@ function MetricContainer() {
         },
       ]);
     }
-    // const transpose = await get("transpose", entries);
-    // setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***transpose }));
-    // setBuffer((state) => [
-    //   ***REMOVED******REMOVED******REMOVED***state,
-    //   {
-    //     type: "success",
-    //     message: "computed transpose",
-    //   },
-    // ]);
+    
     const diffMatrix = await get("diffMatrix", entries, coordinates);
     setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***diffMatrix }));
     setBuffer((state) => [
@@ -107,8 +99,9 @@ function MetricContainer() {
   };
 
   return (
-    <div className="flex flex-row gap-12 py-36 min-h-screen">
-      <div className="flex flex-col gap-6">
+    <div className="flex xl:flex-row flex-col gap-12 py-36 min-h-screen items-center xl:items-start">
+
+      <div className="flex flex-col gap-6 xl:items-end items-center">
         <div className="flex flex-col gap-6 ">
           <form className="bg-black flex flex-row gap-4 items-center justify-between">
             <label>Coordinates</label>
@@ -175,7 +168,8 @@ function MetricContainer() {
         <Log buffer={buffer}></Log>
       </div>
 
-      <ResultJson metricConstants={metricConstants} />
+      <ResultJson metricConstants={metricConstants} setBuffer={setBuffer} />
+
     </div>
   );
 }
