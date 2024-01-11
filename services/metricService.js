@@ -6,7 +6,7 @@ const get = async (what, arr, coords, diffMatrix) => {
     metric: arr,
     coords: coords,
     diffMatrix: diffMatrix
-  });
+  }, {timeout: 30000});
   return res***REMOVED***data;
 }
 
