@@ -14,6 +14,7 @@
     "@types/node": "20***REMOVED***2***REMOVED***4",
     "@types/react": "18***REMOVED***2***REMOVED***7",
     "@types/react-dom": "18***REMOVED***2***REMOVED***4",
+    "@vercel/analytics": "^1***REMOVED***1***REMOVED***1",
     "autoprefixer": "10***REMOVED***4***REMOVED***14",
     "axios": "^1***REMOVED***6***REMOVED***5",
     "concurrently": "^8***REMOVED***0***REMOVED***1",
