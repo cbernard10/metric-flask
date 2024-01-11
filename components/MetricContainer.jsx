@@ -145,7 +145,7 @@ function MetricContainer() {
                       onInput={(e) => auto_grow(e***REMOVED***target)}
                       type="text"
                       id={index}
-                      value={entry}
+                      value={entry***REMOVED***toLowerCase()}
                       onChange={(e) => {
                         const newEntries = [***REMOVED******REMOVED******REMOVED***entries];
                         newEntries[index] = e***REMOVED***target***REMOVED***value;
