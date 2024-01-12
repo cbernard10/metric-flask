@@ -5,6 +5,7 @@ import ResultJson from "***REMOVED***/ResultJson";
 import Log from "***REMOVED***/Log";
 
 import get from "***REMOVED******REMOVED***/services/metricService";
+import { add } from "mathjs";
 
 function auto_grow(element) {
   element***REMOVED***style***REMOVED***height = "5px";
@@ -21,86 +22,53 @@ function MetricContainer() {
   const [coordinates, setCoordinates] = useState(["x", "y", "z"]);
   const [buffer, setBuffer] = useState([]);
 
+  const log = (message, type) => {
+    setBuffer((state) => [
+      ***REMOVED******REMOVED******REMOVED***state,
+      {
+        type,
+        message,
+      },
+    ]);
+  };
+
+  const addValue = async (name, partial_derivatives) => {
+    try {
+      const res = await get(name, entries, coordinates, partial_derivatives);
+      setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***res }));
+      log(`computed ${name}`, "success");
+      return res;
+    } catch (error) {
+      log(`error computing ${name}`, "error");
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e***REMOVED***preventDefault();
+    log("connecting to server", "success");
     console***REMOVED***log("entries", entries);
-    const trace = await get("trace", entries);
-    setMetricConstants({})
-    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***trace }));
-    setBuffer((state) => [
-      ***REMOVED******REMOVED******REMOVED***state,
-      {
-        type: "success",
-        message: "computed trace",
-      },
-    ]);
-    const determinant = await get("determinant", entries);
-    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***determinant }));
-    setBuffer((state) => [
-      ***REMOVED******REMOVED******REMOVED***state,
-      {
-        type: "success",
-        message: "computed determinant",
-      },
-    ]);
-    if (determinant***REMOVED***determinant === "0") {
-      setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, inverse: null }));
-      setBuffer((state) => [
-        ***REMOVED******REMOVED******REMOVED***state,
-        {
-          type: "error",
-          message: "cannot inverse matrix: determinant is 0",
-        },
-      ]);
-    } else {
-      const inverse = await get("inverse", entries);
-      setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***inverse }));
-      setBuffer((state) => [
-        ***REMOVED******REMOVED******REMOVED***state,
-        {
-          type: "success",
-          message: "computed inverse",
-        },
-      ]);
+
+    setMetricConstants({});
+
+    await addValue("trace");
+    await addValue("determinant");
+    try {
+      await addValue("inverse");
+    } catch (error) {
+      log("cannot inverse matrix: determinant is 0", "error");
     }
-    
-    const diffMatrix = await get("diffMatrix", entries, coordinates);
-    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***diffMatrix }));
-    setBuffer((state) => [
-      ***REMOVED******REMOVED******REMOVED***state,
-      {
-        type: "success",
-        message: "computed partial derivatives",
-      },
-    ]);
-
-    const christ1 = await get("christ1", entries, coordinates, diffMatrix***REMOVED***diffMatrix);
-    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***christ1 }));
-    setBuffer((state) => [
-      ***REMOVED******REMOVED******REMOVED***state,
-      {
-        type: "success",
-        message: "computed christoffel symbols of the first kind (ordered according to first index)",
-      },
-    ]);
-
-    const christ2 = await get("christ2", entries, coordinates, diffMatrix***REMOVED***diffMatrix);
-    setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***christ2 }));
-    setBuffer((state) => [
-      ***REMOVED******REMOVED******REMOVED***state,
-      {
-        type: "success",
-        message: "computed christoffel symbols of the second kind (ordered according to first index)",
-      },
-    ]);
-
-
-    // keep last 10 lines in buffer
+    const partial_derivatives = await addValue("partial_derivatives");
+    await addValue("christoffel_1", partial_derivatives***REMOVED***partial_derivatives);
+    try {
+      await addValue("christoffel_2", partial_derivatives***REMOVED***partial_derivatives);
+    } catch (error) {
+      log("error computing christoffel symbols of the second kind: metric is not invertible", "error");
+    }
   };
 
   return (
     <div className="flex xl:flex-row flex-col gap-12 py-16 lg:py-36 min-h-screen items-center xl:items-start">
-
       <div className="flex flex-col gap-6 xl:items-end items-center">
         <div className="flex flex-col gap-6 ">
           <form className="bg-black flex flex-row gap-4 items-center justify-between">
@@ -169,7 +137,6 @@ function MetricContainer() {
       </div>
 
       <ResultJson metricConstants={metricConstants} setBuffer={setBuffer} />
-
     </div>
   );
 }
