@@ -109,11 +109,13 @@ function MetricContainer() {
               "
                   >
                     <textarea
-                      className="bg-transparent text-white outline-none lg:text-lg"
+                      className="bg-transparent text-white outline-none lg:text-lg placeholder:text-neutral-600"
                       onInput={(e) => auto_grow(e***REMOVED***target)}
                       type="text"
                       id={index}
                       value={entry***REMOVED***toLowerCase()}
+                      // defaultValue={!entry && index % 4 === 0 ? 1 : 0}
+                      placeholder={!entry && index % 4 === 0 ? 1 : 0}
                       onChange={(e) => {
                         const newEntries = [***REMOVED******REMOVED******REMOVED***entries];
                         newEntries[index] = e***REMOVED***target***REMOVED***value;
