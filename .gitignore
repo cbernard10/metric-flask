@@ -3,6 +3,7 @@
 
 venv/
 api/__pycache__/
+***REMOVED***env
 
 # dependencies
 /node_modules
@@ -37,4 +38,3 @@ yarn-error***REMOVED***log*
 # typescript
 ****REMOVED***tsbuildinfo
 next-env***REMOVED***d***REMOVED***ts
-***REMOVED***env
