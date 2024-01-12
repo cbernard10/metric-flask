@@ -9,16 +9,16 @@ const getSquareRoot = async (number) => {
 };
 
 const getSquareRootSymbolic = async (expr) => {
-  const f = math***REMOVED***parse("2x + x");
-  const simplified = math***REMOVED***simplify(f);
-  return simplified***REMOVED***toString();
+  const f = math.parse("2x + x");
+  const simplified = math.simplify(f);
+  return simplified.toString();
 };
 
 const getTrace = async (arr) => {
-  let matrix = math***REMOVED***matrix(arr);
-  matrix = math***REMOVED***reshape(matrix, [3, 3]);
-  matrix = math***REMOVED***parse(matrix);
-  return math***REMOVED***trace(matrix);
+  let matrix = math.matrix(arr);
+  matrix = math.reshape(matrix, [3, 3]);
+  matrix = math.parse(matrix);
+  return math.trace(matrix);
 };
 
 export { getSquareRoot, getSquareRootSymbolic, getTrace };

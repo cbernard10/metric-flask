@@ -23,11 +23,11 @@ function ResultJson({ metricConstants, setBuffer }) {
         <button
           className="border-2 border-transparent hover:border-neutral-600 bg-neutral-800 font-mono w-10 h-10 flex flex-row items-center justify-center"
           onClick={() => {
-            navigator***REMOVED***clipboard***REMOVED***writeText(
-              JSON***REMOVED***stringify(metricConstants, null, 2)
+            navigator.clipboard.writeText(
+              JSON.stringify(metricConstants, null, 2)
             );
             setBuffer((state) => [
-              ***REMOVED******REMOVED******REMOVED***state,
+              ...state,
               {
                 type: "success",
                 message: "Copied to clipboard",
@@ -36,7 +36,7 @@ function ResultJson({ metricConstants, setBuffer }) {
           }}
         >
           <svg
-            xmlns="http://www***REMOVED***w3***REMOVED***org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             fill="#fff"
@@ -49,7 +49,7 @@ function ResultJson({ metricConstants, setBuffer }) {
       {!collapsed && (
         <div className="font-mono text-start bg-neutral-950 w-full">
           <pre className="text-white text-xs md:text-sm lg:text-base xl:text-lg">
-            {JSON***REMOVED***stringify(metricConstants, null, 2)}
+            {JSON.stringify(metricConstants, null, 2)}
           </pre>
         </div>
       )}

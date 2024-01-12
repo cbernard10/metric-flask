@@ -1,7 +1,7 @@
 "use client";
 
-import MetricContainer from "***REMOVED******REMOVED***/components/MetricContainer";
-import pingService from "***REMOVED******REMOVED***/services/pingService";
+import MetricContainer from "../components/MetricContainer";
+import pingService from "../services/pingService";
 
 export default function Home() {
   const handleClick = () => {

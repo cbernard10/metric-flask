@@ -1,4 +1,4 @@
-module***REMOVED***exports = {
+module.exports = {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const ping = async () => {
-  const res = await axios***REMOVED***get("/api/ping");
-  return res***REMOVED***data;
+  const res = await axios.get("/api/ping");
+  return res.data;
 };
 
 export default ping;

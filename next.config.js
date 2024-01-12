@@ -1,30 +1,30 @@
-/** @type {import('next')***REMOVED***NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   rewrites: async () => {
     return [
       {
         source: "/api/:path*",
         destination:
-          process***REMOVED***env***REMOVED***NODE_ENV === "development"
-            ? "http://127***REMOVED***0***REMOVED***0***REMOVED***1:8000/api/:path*"
+          process.env.NODE_ENV === "development"
+            ? "http://127.0.0.1:8000/api/:path*"
             : "/api/",
       },
       {
         source: "/docs",
         destination:
-          process***REMOVED***env***REMOVED***NODE_ENV === "development"
-            ? "http://127***REMOVED***0***REMOVED***0***REMOVED***1:8000/docs"
+          process.env.NODE_ENV === "development"
+            ? "http://127.0.0.1:8000/docs"
             : "/api/docs",
       },
       {
-        source: "/openapi***REMOVED***json",
+        source: "/openapi.json",
         destination:
-          process***REMOVED***env***REMOVED***NODE_ENV === "development"
-            ? "http://127***REMOVED***0***REMOVED***0***REMOVED***1:8000/openapi***REMOVED***json"
-            : "/api/openapi***REMOVED***json",
+          process.env.NODE_ENV === "development"
+            ? "http://127.0.0.1:8000/openapi.json"
+            : "/api/openapi.json",
       },
     ];
   },
 };
 
-module***REMOVED***exports = nextConfig;
+module.exports = nextConfig;

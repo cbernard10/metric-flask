@@ -1,30 +1,30 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import ResultJson from "***REMOVED***/ResultJson";
-import Log from "***REMOVED***/Log";
+import ResultJson from "./ResultJson";
+import Log from "./Log";
 
-import get from "***REMOVED******REMOVED***/services/metricService";
+import get from "../services/metricService";
 import { add } from "mathjs";
 
 function auto_grow(element) {
-  element***REMOVED***style***REMOVED***height = "5px";
-  element***REMOVED***style***REMOVED***height = element***REMOVED***scrollHeight + "px";
+  element.style.height = "5px";
+  element.style.height = element.scrollHeight + "px";
 }
 
 function focusArea(name) {
-  document***REMOVED***getElementById(name)***REMOVED***focus();
+  document.getElementById(name).focus();
 }
 
 function MetricContainer() {
-  const [entries, setEntries] = useState(Array(9)***REMOVED***fill(""));
+  const [entries, setEntries] = useState(Array(9).fill(""));
   const [metricConstants, setMetricConstants] = useState({});
   const [coordinates, setCoordinates] = useState(["x", "y", "z"]);
   const [buffer, setBuffer] = useState([]);
 
   const log = (message, type) => {
     setBuffer((state) => [
-      ***REMOVED******REMOVED******REMOVED***state,
+      ...state,
       {
         type,
         message,
@@ -35,7 +35,7 @@ function MetricContainer() {
   const addValue = async (name, partial_derivatives) => {
     try {
       const res = await get(name, entries, coordinates, partial_derivatives);
-      setMetricConstants((state) => ({ ***REMOVED******REMOVED******REMOVED***state, ***REMOVED******REMOVED******REMOVED***res }));
+      setMetricConstants((state) => ({ ...state, ...res }));
       log(`computed ${name}`, "success");
       return res;
     } catch (error) {
@@ -45,9 +45,9 @@ function MetricContainer() {
   };
 
   const handleSubmit = async (e) => {
-    e***REMOVED***preventDefault();
+    e.preventDefault();
     log("connecting to server", "success");
-    console***REMOVED***log("entries", entries);
+    console.log("entries", entries);
 
     setMetricConstants({});
 
@@ -59,9 +59,9 @@ function MetricContainer() {
       log("cannot inverse matrix: determinant is 0", "error");
     }
     const partial_derivatives = await addValue("partial_derivatives");
-    await addValue("christoffel_1", partial_derivatives***REMOVED***partial_derivatives);
+    await addValue("christoffel_1", partial_derivatives.partial_derivatives);
     try {
-      await addValue("christoffel_2", partial_derivatives***REMOVED***partial_derivatives);
+      await addValue("christoffel_2", partial_derivatives.partial_derivatives);
     } catch (error) {
       log("error computing christoffel symbols of the second kind: metric is not invertible", "error");
     }
@@ -74,7 +74,7 @@ function MetricContainer() {
           <form className="bg-black flex flex-row gap-4 items-center justify-between">
             <label>Coordinates</label>
             <div className="flex flex-row">
-              {coordinates***REMOVED***map((coordinate, index) => {
+              {coordinates.map((coordinate, index) => {
                 return (
                   <input
                     className="w-16 border-[1px] py-2 border-neutral-600 bg-neutral-900 flex justify-center items-center text-center font-mono"
@@ -82,8 +82,8 @@ function MetricContainer() {
                     type="text"
                     value={coordinate}
                     onChange={(e) => {
-                      const newCoordinates = [***REMOVED******REMOVED******REMOVED***coordinates];
-                      newCoordinates[index] = e***REMOVED***target***REMOVED***value;
+                      const newCoordinates = [...coordinates];
+                      newCoordinates[index] = e.target.value;
                       setCoordinates(newCoordinates);
                     }}
                   ></input>
@@ -97,7 +97,7 @@ function MetricContainer() {
             onSubmit={handleSubmit}
           >
             <div className="grid grid-cols-3 grid-rows-3 w-[300px] h-[300px] lg:h-[400px] lg:w-[400px] xl:h-[500px] xl:w-[500px] border-2 border-neutral-600">
-              {entries***REMOVED***map((entry, index) => {
+              {entries.map((entry, index) => {
                 return (
                   <div
                     key={index}
@@ -110,15 +110,15 @@ function MetricContainer() {
                   >
                     <textarea
                       className="bg-transparent text-white outline-none lg:text-lg placeholder:text-neutral-600"
-                      onInput={(e) => auto_grow(e***REMOVED***target)}
+                      onInput={(e) => auto_grow(e.target)}
                       type="text"
                       id={index}
-                      value={entry***REMOVED***toLowerCase()}
+                      value={entry.toLowerCase()}
                       // defaultValue={!entry && index % 4 === 0 ? 1 : 0}
                       placeholder={!entry && index % 4 === 0 ? 1 : 0}
                       onChange={(e) => {
-                        const newEntries = [***REMOVED******REMOVED******REMOVED***entries];
-                        newEntries[index] = e***REMOVED***target***REMOVED***value;
+                        const newEntries = [...entries];
+                        newEntries[index] = e.target.value;
                         setEntries(newEntries);
                       }}
                     ></textarea>

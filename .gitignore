@@ -1,40 +1,40 @@
-# See https://help***REMOVED***github***REMOVED***com/articles/ignoring-files/ for more about ignoring files***REMOVED***
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 
 venv/
 api/__pycache__/
-***REMOVED***env
+.env
 
 # dependencies
 /node_modules
-/***REMOVED***pnp
-***REMOVED***pnp***REMOVED***js
+/.pnp
+.pnp.js
 
 # testing
 /coverage
 
-# next***REMOVED***js
-/***REMOVED***next/
+# next.js
+/.next/
 /out/
 
 # production
 /build
 
 # misc
-***REMOVED***DS_Store
-****REMOVED***pem
+.DS_Store
+*.pem
 
 # debug
-npm-debug***REMOVED***log*
-yarn-debug***REMOVED***log*
-yarn-error***REMOVED***log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # local env files
-***REMOVED***env****REMOVED***local
+.env*.local
 
 # vercel
-***REMOVED***vercel
+.vercel
 
 # typescript
-****REMOVED***tsbuildinfo
-next-env***REMOVED***d***REMOVED***ts
+*.tsbuildinfo
+next-env.d.ts
