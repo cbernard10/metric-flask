@@ -4,6 +4,7 @@
 venv/
 api/__pycache__/
 .env
+.eslintrc.json
 
 # dependencies
 /node_modules
