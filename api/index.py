@@ -31,50 +31,50 @@ def extractMatrixAndCoords(body):
     partial_derivatives = body['partial_derivatives']
     return metric, coords, partial_derivatives
 
-@app.get("/python/python")
+@app.get("/api/python")
 def hello_world():
     return {"message": "Hello World"}
 
-@app.get("/python/ping")
+@app.get("/api/ping")
 def ping():
     return {"message": "pong"}
 
-@app.get("/python/sympy_test")
+@app.get("/api/sympy_test")
 def sympy_test():
     x = sp.Symbol('x')
     expr = sp.sin(x**2)
     derivative = sp.diff(expr, x)
     return {"expr": str(expr), "derivative": str(derivative)}
             
-@app.post("/python/trace")
+@app.post("/api/trace")
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
     trace = str(sp.trace(metric))
     return {"trace": trace}
 
-@app.post("/python/determinant")
+@app.post("/api/determinant")
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
     determinant = str(sp.simplify(sp.det(metric)))
     return {"determinant": determinant}
 
-@app.post("/python/inverse")
+@app.post("/api/inverse")
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
     inverse = str(sp.simplify(metric.inv()).tolist())
     return {"inverse": inverse}
 
-@app.post("/python/transpose")
+@app.post("/api/transpose")
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
     transpose = str(metric.T.tolist())
     return {"transpose": transpose}
 
-@app.post("/python/partial_derivatives")
+@app.post("/api/partial_derivatives")
 async def get_body(req: Request):
     body = await req.json()
     metric, coords, _  = extractMatrixAndCoords(body)   
@@ -101,7 +101,7 @@ async def get_body(req: Request):
             coords[2]: str(dg_arrays[2].tolist())
             }}
 
-@app.post("/python/christoffel_1")
+@app.post("/api/christoffel_1")
 async def get_body(req: Request):
     body = await req.json()
     metric, coords, partial_derivatives = extractMatrixAndCoords(body)   
@@ -138,7 +138,7 @@ async def get_body(req: Request):
             }}
 
     
-@app.post("/python/christoffel_2")
+@app.post("/api/christoffel_2")
 async def get_body(req: Request):
     body = await req.json()
     metric, coords, partial_derivatives = extractMatrixAndCoords(body)   
