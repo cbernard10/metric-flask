@@ -22,10 +22,9 @@ app.add_middleware(
 def extractMatrixAndCoords(body):
     metric = body['metric']
     metric = sp.Matrix(metric)
-    metric = metric.reshape(3,3)
-    if('coords' not in body):
-        return metric, None, None
     coords = body['coords']
+    shape = len(coords)
+    metric = metric.reshape(shape,shape)
     if('partial_derivatives' not in body):
         return metric, coords, None
     partial_derivatives = body['partial_derivatives']
@@ -78,50 +77,35 @@ async def get_body(req: Request):
 async def get_body(req: Request):
     body = await req.json()
     metric, coords, _  = extractMatrixAndCoords(body)   
-    dg_arrays = [
-        sp.zeros(3, 3),
-        sp.zeros(3, 3),
-        sp.zeros(3, 3)
-    ]
+    shape = len(coords)
 
-    if(coords == None):
-        return {"partial_derivatives": "coords not found"}
+    dg_arrays = [sp.zeros(shape, shape) for _ in range(shape)]
 
-    for i in range(3):
-        for j in range(3):
-            for k in range(3):
+    for i in range(shape):
+        for j in range(shape):
+            for k in range(shape):
                 res = sp.diff(metric[i,j], coords[k])
                 res = str(sp.simplify(res))
                 dg_arrays[k][i,j] = res
 
     return {
         "partial_derivatives": {
-            coords[0]: str(dg_arrays[0].tolist()), 
-            coords[1]: str(dg_arrays[1].tolist()), 
-            coords[2]: str(dg_arrays[2].tolist())
-            }}
+            coords[i]: str(dg_arrays[i].tolist()) for i in range(shape)
+            }
+        }
 
 @app.post("/api/christoffel_1")
 async def get_body(req: Request):
     body = await req.json()
-    metric, coords, partial_derivatives = extractMatrixAndCoords(body)   
+    _, coords, partial_derivatives = extractMatrixAndCoords(body)   
     print('partial_derivatives', partial_derivatives)
-    
-    christoffel_1_arrays = [
-        sp.zeros(3, 3),
-        sp.zeros(3, 3),
-        sp.zeros(3, 3)
-    ]
+    shape = len(coords)
 
-    if(coords == None):
-        return {"christoffel_1": "coords not found"}
+    christoffel_1_arrays = [sp.zeros(shape, shape) for _ in range(shape)]
     
-    if(partial_derivatives == None):
-        return {"christoffel_1": "partial_derivatives not found"}
-    
-    for i in range(3):
-        for j in range(3):
-            for k in range(3):
+    for i in range(shape):
+        for j in range(shape):
+            for k in range(shape):
 
                 res = 0.5*(sp.Matrix(sp.parse_expr(partial_derivatives[coords[j]]))[k,i] + 
                            sp.Matrix(sp.parse_expr(partial_derivatives[coords[i]]))[k,j] - 
@@ -132,10 +116,9 @@ async def get_body(req: Request):
                     
     return {
         "christoffel_1": {
-            coords[0]: str(christoffel_1_arrays[0].tolist()), 
-            coords[1]: str(christoffel_1_arrays[1].tolist()), 
-            coords[2]: str(christoffel_1_arrays[2].tolist())
-            }}
+            coords[i]: str(christoffel_1_arrays[i].tolist()) for i in range(shape)
+            }
+        }
 
     
 @app.post("/api/christoffel_2")
@@ -143,30 +126,20 @@ async def get_body(req: Request):
     body = await req.json()
     metric, coords, partial_derivatives = extractMatrixAndCoords(body)   
     print('partial_derivatives', partial_derivatives)
-    
-    christoffel_2_arrays = [
-        sp.zeros(3, 3),
-        sp.zeros(3, 3),
-        sp.zeros(3, 3)
-    ]
+    shape = len(coords)
 
-
-    if(metric == None):
-        return {"christoffel_2": "metric not found"}
-
-    if(coords == None):
-        return {"christoffel_2": "coords not found"}
+    christoffel_2_arrays = [sp.zeros(shape, shape) for _ in range(shape)]
     
     if(partial_derivatives == None):
         return {"christoffel_2": "partial_derivatives not found"}
     
     contra_metric = metric.inv()
                     
-    for i in range(3):
-        for j in range(3):
-            for k in range(3):
+    for i in range(shape):
+        for j in range(shape):
+            for k in range(shape):
                 res = 0
-                for l in range(3):
+                for l in range(shape):
 
                     res += contra_metric[i,l]*(
                         sp.Matrix(sp.parse_expr(partial_derivatives[coords[k]]))[j,l] +
@@ -179,9 +152,7 @@ async def get_body(req: Request):
     
     return {
         "christoffel_2": {
-            coords[0]: str(christoffel_2_arrays[0].tolist()), 
-            coords[1]: str(christoffel_2_arrays[1].tolist()), 
-            coords[2]: str(christoffel_2_arrays[2].tolist())
-            }}
-                    
+            coords[i]: str(christoffel_2_arrays[i].tolist()) for i in range(shape)
+            }
+        } 
     
