@@ -2,7 +2,7 @@ import axios from "axios";
 
 const get = async (what, arr, coords, partial_derivatives) => {
   // console.log('fetching', what, arr, coords);
-  const res = await axios.post(`/api/${what}`, {
+  const res = await axios.post(`/python/${what}`, {
     metric: arr,
     coords: coords,
     partial_derivatives: partial_derivatives
