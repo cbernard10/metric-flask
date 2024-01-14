@@ -1,6 +1,7 @@
+'use server'
 const bcrypt = require("bcrypt");
 const User = require("../../../models/user");
-import connectDB from "../../../lib/connectDB";
+import connectDB from "../../../lib/dbConnect";
 
 export async function POST(request) {
   await connectDB();

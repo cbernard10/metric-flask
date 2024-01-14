@@ -5,7 +5,6 @@ import ResultJson from "./ResultJson";
 import Log from "./Log";
 
 import get from "../services/metricService";
-import { add } from "mathjs";
 
 function auto_grow(element) {
   element.style.height = "5px";
