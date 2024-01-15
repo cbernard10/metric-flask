@@ -10,17 +10,17 @@ export default function Header() {
     <div
       className="
     flex flex-row items-center gap-6 self-end bg-gradient-to-b 
-    from-neutral-900 to-black w-full h-full p-6 border-b-2 border-b-neutral-950 justify-between"
+    from-neutral-900 to-black w-full h-full p-6 border-b-2 border-b-neutral-950 justify-end"
     >
       {session ? (
         <>
           <div className="flex flex-row items-center gap-6">
+            {session.user.name}
             <img
               src={session.user.image}
               className="w-12 h-12 rounded-full"
               alt="user image"
             />
-            {session.user.name}
           </div>
           <button
             onClick={() => signOut()}
@@ -31,7 +31,6 @@ export default function Header() {
           </button>
         </>
       ) : (
-        <>
           <button
             onClick={() => signIn()}
             className="bg-black text-white rounded-md px-6 py-2 border-2 border-white
@@ -40,7 +39,6 @@ export default function Header() {
           >
             Sign in
           </button>
-        </>
       )}
     </div>
   );

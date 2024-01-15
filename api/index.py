@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import sympy as sp
+import numpy as np
 from fastapi import FastAPI
 
 origins = [
@@ -30,6 +31,40 @@ def extractMatrixAndCoords(body):
     partial_derivatives = body['partial_derivatives']
     return metric, coords, partial_derivatives
 
+def dg(g, coords, i, j, k):
+
+    x_k = coords[k]
+    res = sp.diff(g[i,j], x_k)
+    res = sp.simplify(res)
+    return res
+
+def christ1(i, j, k):
+
+    res = 0.5 * (dg(j, i, k) + dg(k, i, j) - dg(j, k, i))
+    res = sp.simplify(res)
+    return res
+
+def christ2(g, coords, i, j, k):
+
+    GI = g.inv()
+    dim = len(coords)
+    res = 0
+    for l in range(dim):
+        res += 0.5 * GI[i, l] * (dg(g, coords, j, l, k) + dg(g, coords, k, l, j) - dg(g, coords, j, k, l))
+
+    return sp.simplify(res)
+
+def christoffel_symbols(g, coords):
+
+    dim = len(coords)
+    mat = np.zeros((dim, dim, dim), dtype=object)
+
+    for i in range(dim):
+        for j in range(dim):
+            for k in range(dim):
+                mat[i, j, k] = christ2(g, coords, i, j, k)
+
+    return mat
 
 @app.get("/api/ping")
 def ping():
@@ -76,18 +111,19 @@ async def get_body(req: Request):
     metric, coords, _  = extractMatrixAndCoords(body)   
     shape = len(coords)
 
-    dg_arrays = [sp.zeros(shape, shape) for _ in range(shape)]
+    dg_array = np.empty((shape,shape,shape), dtype=object)
 
     for i in range(shape):
         for j in range(shape):
             for k in range(shape):
-                res = sp.diff(metric[i,j], coords[k])
-                res = str(sp.simplify(res))
-                dg_arrays[k][i,j] = res
+                    
+                    dg_array[i,j,k] = dg(metric, coords, i, j, k)
+
+    print(dg_array)
 
     return {
         "partial_derivatives": {
-            coords[i]: str(dg_arrays[i].tolist()) for i in range(shape)
+            coords[i]: str(dg_array[...,i].tolist()) for i in range(shape)
             }
         }
 
@@ -125,31 +161,14 @@ async def get_body(req: Request):
     print('partial_derivatives', partial_derivatives)
     shape = len(coords)
 
-    christoffel_2_arrays = [sp.zeros(shape, shape) for _ in range(shape)]
-    
     if(partial_derivatives == None):
         return {"christoffel_2": "partial_derivatives not found"}
     
-    contra_metric = metric.inv()
-                    
-    for i in range(shape):
-        for j in range(shape):
-            for k in range(shape):
-                res = 0
-                for l in range(shape):
+    res = christoffel_symbols(metric, coords)
 
-                    res += contra_metric[i,l]*(
-                        sp.Matrix(sp.parse_expr(partial_derivatives[coords[k]]))[j,l] +
-                        sp.Matrix(sp.parse_expr(partial_derivatives[coords[j]]))[k,l] -
-                        sp.Matrix(sp.parse_expr(partial_derivatives[coords[l]]))[j,k])
-                    res = sp.simplify(res)
-                
-                christoffel_2_arrays[k][i,j] = str(res)
-                christoffel_2_arrays[k][j,i] = str(res)
-    
     return {
         "christoffel_2": {
-            coords[i]: str(christoffel_2_arrays[i].tolist()) for i in range(shape)
+            coords[i]: str(res[i].tolist()) for i in range(shape)
             }
         } 
     
