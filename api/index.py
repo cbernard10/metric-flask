@@ -30,9 +30,6 @@ def extractMatrixAndCoords(body):
     partial_derivatives = body['partial_derivatives']
     return metric, coords, partial_derivatives
 
-@app.get("/api/python")
-def hello_world():
-    return {"message": "Hello World"}
 
 @app.get("/api/ping")
 def ping():
