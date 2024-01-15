@@ -87,7 +87,7 @@ function MetricForm({
                 type="text"
                 id={index}
                 value={entry.toLowerCase()}
-                placeholder={!entry && index % 4 === 0 ? 1 : 0}
+                placeholder={!entry && index % (shape+1) === 0 ? 1 : 0}
                 onChange={(e) => {
                   const newEntries = [...entries];
                   newEntries[index] = e.target.value;
