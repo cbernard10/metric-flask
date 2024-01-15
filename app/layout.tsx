@@ -5,8 +5,11 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/react";
 import NextAuthSessionProvider from "../providers/SessionProvider";
+import { Hanken_Grotesk } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const hkgrotestk = Hanken_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +26,7 @@ export default function RootLayout({
       lang="en"
       className={`${GeistSans.variable} ${GeistMono.variable} bg-black text-white`}
     >
-      <body className={`${inter.className}`}>
+      <body className={`${hkgrotestk.className}`}>
         <NextAuthSessionProvider>
           {children}
           <Analytics />

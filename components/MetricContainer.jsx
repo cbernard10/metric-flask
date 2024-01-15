@@ -14,7 +14,7 @@ function MetricContainer() {
   const [shape, setShape] = useState(3);
 
   return (
-    <div className="flex xl:flex-row flex-col gap-12 py-16 lg:py-36 min-h-screen items-center xl:items-start">
+    <div className="flex xl:flex-row flex-col gap-12 py-4 lg:py-20 min-h-screen items-center xl:items-start">
       <div className="flex flex-col gap-6 xl:items-end items-center">
         <div className="flex flex-col gap-6 ">
           <div className="flex flex-row justify-end items-center gap-6">
