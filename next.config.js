@@ -8,7 +8,7 @@ const nextConfig = {
       {
         source: "/api/auth/:path*",
         destination:
-          process.env.NODE_ENV === "development" ? "/api/auth/:path*" : "/api/",
+          process.env.NODE_ENV === "development" ? "/api/auth/:path*" : "/api/auth/",
       },
       {
         source: "/api/:path*",
