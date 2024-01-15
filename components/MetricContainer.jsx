@@ -50,6 +50,7 @@ function MetricContainer() {
           <MetricForm
             entries={entries}
             setEntries={setEntries}
+            metricConstants={metricConstants}
             setMetricConstants={setMetricConstants}
             setBuffer={setBuffer}
             coordinates={coordinates}
