@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   rewrites: async () => {
     return [
       {
         source: "/api/auth/:path*",
         destination:
-          process.env.NODE_ENV === "development"
-            ? "/api/auth/:path*"
-            : "/api/",
+          process.env.NODE_ENV === "development" ? "/api/auth/:path*" : "/api/",
       },
       {
         source: "/api/:path*",
