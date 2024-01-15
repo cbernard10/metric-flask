@@ -74,7 +74,7 @@ function MetricForm({
           return (
             <div
               key={index}
-              onClick={() => focusArea(index)}
+              onClick={() => focusArea(`entry-${index}`)}
               className="
         border-2 border-neutral-600 bg-neutral-900 flex flex-row justify-center 
         items-center text-center font-mono resize-none break-all h-full outline-none focus:bg-violet-950
@@ -85,7 +85,7 @@ function MetricForm({
                 className="bg-transparent text-white outline-none lg:text-lg placeholder:text-neutral-600"
                 onInput={(e) => auto_grow(e.target)}
                 type="text"
-                id={index}
+                id={`entry-${index}`}
                 value={entry.toLowerCase()}
                 placeholder={!entry && index % (shape+1) === 0 ? 1 : 0}
                 onChange={(e) => {
@@ -99,7 +99,7 @@ function MetricForm({
         })}
       </Grid>
       <button
-        type="submit"
+        type="submit" id="compute-button"
         className="border-2 border-purple-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-purple-950 to-purple-800
   hover:from-purple-800 hover:to-purple-950 hover:border-purple-800 self-end"
       >

@@ -24,6 +24,7 @@ function MetricContainer() {
                 return (
                   <button
                     key={index}
+                    id={`shape-${dimension}`}
                     className={`${
                       entries.length === dimension ** 2
                         ? "bg-purple-700"

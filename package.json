@@ -8,7 +8,10 @@
     "dev": "NODE_ENV='development' concurrently \"npm run next-dev\" \"npm run fastapi-dev\"",
     "build": "pip3 install -r requirements.txt && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "cypress run",
+    "test:e2e:ui": "cypress open",
+    "start:test": "NODE_ENV=test fastapi-dev"
   },
   "dependencies": {
     "@types/node": "20.2.4",
@@ -35,9 +38,7 @@
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
+  "devDependencies": {
+    "cypress": "^13.6.2"
   }
 }
