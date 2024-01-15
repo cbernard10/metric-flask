@@ -4,6 +4,7 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/react";
+import NextAuthSessionProvider from "../providers/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,10 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} bg-black text-white`}
     >
       <body className={`${inter.className}`}>
+        <NextAuthSessionProvider>
           {children}
           <Analytics />
+        </NextAuthSessionProvider>
       </body>
     </html>
   );
