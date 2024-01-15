@@ -7,8 +7,7 @@ const nextConfig = {
     return [
       {
         source: "/api/auth/:path*",
-        destination:
-          process.env.NODE_ENV === "development" ? "/api/auth/:path*" : "/api/auth/",
+        destination: "/api/auth/:path*"
       },
       {
         source: "/api/:path*",
