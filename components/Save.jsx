@@ -21,6 +21,7 @@ function Save({ metric, coordinates, log }) {
         <div className="flex flex-row gap-4">
           <input
             id="name"
+            placeholder="name"
             className="bg-neutral-800 p-2"
             onChange={(event) => setName(event.target.value)}
           ></input>
