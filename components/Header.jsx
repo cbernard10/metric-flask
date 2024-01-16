@@ -2,6 +2,7 @@
 "use client";
 
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -15,6 +16,8 @@ export default function Header() {
       {session ? (
         <>
           <div className="flex flex-row items-center gap-6">
+            <Link href="/">Home</Link>
+            <Link href="/dashboard">Dashboard</Link>
             {session.user.name}
             <img
               src={session.user.image}
@@ -23,7 +26,9 @@ export default function Header() {
             />
           </div>
           <button
-            onClick={() => signOut()}
+            onClick={() =>
+              signOut({ callbackUrl: "/" })
+            }
             className="bg-black text-white rounded-md py-2 px-6 border-white border-2
             hover:border-purple-700"
           >
@@ -31,14 +36,14 @@ export default function Header() {
           </button>
         </>
       ) : (
-          <button
-            onClick={() => signIn()}
-            className="bg-black text-white rounded-md px-6 py-2 border-2 border-white
+        <button
+          onClick={() => signIn()}
+          className="bg-black text-white rounded-md px-6 py-2 border-2 border-white
                 hover:border-purple-700
             "
-          >
-            Sign in
-          </button>
+        >
+          Sign in
+        </button>
       )}
     </div>
   );

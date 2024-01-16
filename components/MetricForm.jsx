@@ -100,8 +100,8 @@ function MetricForm({
           );
         })}
       </Grid>
-      <div className="flex flex-row gap-4 justify-between w-full">
-        <Save metric={entries} metricConstants={metricConstants} />
+      <div className="flex flex-row gap-4 justify-end w-full">
+        <Save metric={entries} metricConstants={metricConstants} coordinates={coordinates} />
         <button
           type="submit"
           id="compute-button"

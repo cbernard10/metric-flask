@@ -10,6 +10,10 @@ const nextConfig = {
         destination: "/api/auth/:path*"
       },
       {
+        source: "/api/metric/:path*",
+        destination: "/api/metric/:path*"
+      },
+      {
         source: "/api/:path*",
         destination:
           process.env.NODE_ENV === "development"

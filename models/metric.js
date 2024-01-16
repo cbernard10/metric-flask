@@ -8,6 +8,13 @@ const metricSchema = new mongoose.Schema({
   value: [
     {
       type: String,
+      required: true,
+    },
+  ],
+  coordinates: [
+    {
+      type: String,
+      required: true,
     },
   ],
   date: {

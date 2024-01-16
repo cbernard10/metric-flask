@@ -6,6 +6,7 @@ import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/react";
 import NextAuthSessionProvider from "../providers/SessionProvider";
 import { Hanken_Grotesk } from "next/font/google";
+import Header from "../components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
     >
       <body className={`${hkgrotestk.className}`}>
         <NextAuthSessionProvider>
+          <Header />
           {children}
           <Analytics />
         </NextAuthSessionProvider>
