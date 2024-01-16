@@ -38,7 +38,7 @@ function MetricView({ metric }) {
     try {
       const res = await remove(metric.id);
       log(`deleted ${newName}`, "success");
-        router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
       log(`error deleting ${newName}`, "error");
@@ -56,7 +56,11 @@ function MetricView({ metric }) {
   };
 
   return (
-    <form className="flex flex-col gap-4 items-center" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-4 items-center pt-16"
+      onSubmit={handleSubmit}
+    >
+      <span className="text-4xl font-bold">{newName}</span>
       <Grid shape={metric.coordinates.length}>
         {entries.map((entry, index) => {
           return (
@@ -75,7 +79,11 @@ function MetricView({ metric }) {
                 type="text"
                 id={`entry-${index}`}
                 value={entry.toLowerCase()}
-                placeholder={!entry && index % (metric.coordinates.length + 1) === 0 ? 1 : 0}
+                placeholder={
+                  !entry && index % (metric.coordinates.length + 1) === 0
+                    ? 1
+                    : 0
+                }
                 onChange={(e) => {
                   console.log(e.target.value);
                   const newEntries = [...entries];
@@ -87,16 +95,32 @@ function MetricView({ metric }) {
           );
         })}
       </Grid>
-      <input
-        defaultValue={newName}
-        id="name"
-        className="bg-neutral-800 p-2"
-        onChange={(event) => setNewName(event.target.value)}
-      ></input>
-      <button>Update</button>
-      <button type="button" onClick={handleDelete}>
-        Delete
-      </button>
+      <div className="flex flex-row gap-6 justify-end">
+        <input
+          defaultValue={newName}
+          id="name"
+          className="bg-neutral-800 p-2"
+          onChange={(event) => setNewName(event.target.value)}
+        ></input>
+        <button
+          type="submit"
+          id="compute-button"
+          className="border-2 border-purple-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-purple-950 to-purple-800
+    hover:from-purple-800 hover:to-purple-950 hover:border-purple-800
+          "
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          onClick={handleDelete}
+          className="border-2 border-red-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-red-950 to-red-800
+    hover:from-red-800 hover:to-red-950 hover:border-red-800
+          "
+        >
+          Delete
+        </button>
+      </div>
       <Log buffer={buffer}></Log>
     </form>
   );

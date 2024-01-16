@@ -18,19 +18,25 @@ function UserMetrics() {
   }, []);
 
   return (
-    <div>
-      {userMetrics.map((metric, index) => {
-        return (
-          <div key={index}>
-            <Link href={`/dashboard/${metric.id}`}>
-              <p>{metric.name}</p>
-              <div>
-                <MiniMetricContainer metric={metric.value} coordinates={metric.coordinates} />
-              </div>
-            </Link>
-          </div>
-        );
-      })}
+    <div className="flex flex-col gap-6">
+      <h2 className="text-2xl font-medium">Your metrics:</h2>
+      <div className="flex flex-row gap-6">
+        {userMetrics.map((metric, index) => {
+          return (
+            <div key={index} className="w-fit">
+              <Link href={`/dashboard/${metric.id}`}>
+                <p className="text-xl font-medium">{metric.name}</p>
+                <div>
+                  <MiniMetricContainer
+                    metric={metric.value}
+                    coordinates={metric.coordinates}
+                  />
+                </div>
+              </Link>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
