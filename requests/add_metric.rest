@@ -1,7 +1,5 @@
 POST http://localhost:3000/api/metric
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NWExZDZmYzkyYTdjMmVkZThjNDc2NGIiLCJpYXQiOjE3MDUxODg4ODksImV4cCI6MTcwNTE5MjQ4OX0.SN_DGtBVZPXHfHs_NEFo2H6U7Ref9wNV3USapPFdq4Q
-
 {
   "name": "euclidean",
   "value": "[[1, 0, 0], [0, 1, 0], [0, 0, 1]]"

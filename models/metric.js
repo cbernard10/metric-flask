@@ -7,7 +7,7 @@ const metricSchema = new mongoose.Schema({
   },
   value: [
     {
-      type: Array,
+      type: String,
     },
   ],
   date: {
