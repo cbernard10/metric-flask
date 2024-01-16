@@ -1,6 +1,7 @@
 import React from "react";
-import get from "../services/metricService";
+import { get } from "../services/metricService";
 import Grid from "./Grid";
+import Save from "./Save";
 
 function auto_grow(element) {
   element.style.height = "5px";
@@ -14,6 +15,7 @@ function focusArea(name) {
 function MetricForm({
   entries,
   setEntries,
+  metricConstants,
   setMetricConstants,
   setBuffer,
   coordinates,
@@ -87,7 +89,7 @@ function MetricForm({
                 type="text"
                 id={`entry-${index}`}
                 value={entry.toLowerCase()}
-                placeholder={!entry && index % (shape+1) === 0 ? 1 : 0}
+                placeholder={!entry && index % (shape + 1) === 0 ? 1 : 0}
                 onChange={(e) => {
                   const newEntries = [...entries];
                   newEntries[index] = e.target.value;
@@ -98,13 +100,17 @@ function MetricForm({
           );
         })}
       </Grid>
-      <button
-        type="submit" id="compute-button"
-        className="border-2 border-purple-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-purple-950 to-purple-800
-  hover:from-purple-800 hover:to-purple-950 hover:border-purple-800 self-end"
-      >
-        Compute
-      </button>
+      <div className="flex flex-row gap-4 justify-end w-full">
+        <Save metric={entries} metricConstants={metricConstants} coordinates={coordinates} log={log} />
+        <button
+          type="submit"
+          id="compute-button"
+          className="border-2 border-purple-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-purple-950 to-purple-800
+  hover:from-purple-800 hover:to-purple-950 hover:border-purple-800"
+        >
+          Compute
+        </button>
+      </div>
     </form>
   );
 }

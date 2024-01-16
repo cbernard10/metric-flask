@@ -7,7 +7,14 @@ const metricSchema = new mongoose.Schema({
   },
   value: [
     {
-      type: Array,
+      type: String,
+      required: true,
+    },
+  ],
+  coordinates: [
+    {
+      type: String,
+      required: true,
     },
   ],
   date: {

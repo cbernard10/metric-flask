@@ -1,31 +1,50 @@
 const Metric = require("../../../models/metric");
+const User = require("../../../models/user");
+
 import dbConnect from "../../../lib/dbConnect";
-const jose = require("jose");
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(request) {
-  await dbConnect();
-  const { name, value } = await request.json();
+
+  const session = await getServerSession(authOptions);
   
-  console.log(request.headers)
-  const token = request.headers.get("token");
-  console.log(token);
+  if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  
+  await dbConnect();
+  const { name, metric, coordinates, userEmail } = await request.json();
 
-  const secret = new TextEncoder().encode(process.env.SECRET);
-  const { payload, protectedHeader } = await jose.jwtVerify(token, secret);
-  console.log(payload, protectedHeader);
-
-  if (!payload.id)
-    return Response.json({ error: "invalid token" }, { status: 401 });
-
-  const user = User.findById(payload.id);
-  request.user = user;
+  const user = await User.findOne({ email: userEmail });
 
   const newMetric = new Metric({
     name,
-    value: JSON.parse(value),
+    value: metric,
+    coordinates: coordinates,
   });
 
+  console.log(metric, newMetric)
+
+  const newUser = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    image: user.image,
+    emailVerified: user.emailVerified,
+    metrics: user.metrics.concat(newMetric.id),
+  };
+
+  await User.findByIdAndUpdate(user.id, newUser, { new: false });
   const savedMetric = await newMetric.save();
 
   return Response.json({ savedMetric }, { status: 200 });
+}
+
+export async function GET(request) {
+  const session = await getServerSession(authOptions);
+  
+  if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+  await dbConnect();
+  const metrics = await Metric.find({ user: session.user.id });
+  return Response.json({ metrics }, { status: 200 });
 }
