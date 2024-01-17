@@ -3,31 +3,21 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import PartialDerivativesLatexView from "./PartialDerivativesLatexView";
 import ChristoffelSymbolsLatexView from "./ChristoffelSymbolsLatexView";
 import TraceLatexView from "./TraceLatexView";
+import DeterminantLatexView from "./DeterminantLatexView";
+import InverseLatexView from "./InverseLatexView";
 
 function ResultLatexView({ metricConstants, coordinates }) {
   return (
     <div className="text-xl flex flex-col gap-6">
-      {/* {`\\(\\frac{dg}{d${coordinate}} = ${partial_derivatives[coordinate]}\\)`} */}
-
-      {/* <MathJax>
-        {metricConstants.trace &&
-          `\\(\\mathrm{Tr}\\left(g\\right) = ${metricConstants.trace.latex}\\)`}
-      </MathJax>
-       */}
       {metricConstants.trace && (
         <TraceLatexView trace={metricConstants.trace.latex} />
       )}
-      <MathJax>
-        {metricConstants.determinant &&
-          `\\(\\mathrm{Det}\\left(g\\right) = ${
-            metricConstants.determinant && metricConstants.determinant.latex
-          }\\)`}
-      </MathJax>
-      <MathJax>
-        {metricConstants.inverse &&
-          `\\(g^{-1} = ${metricConstants.inverse.latex}\\)`}
-      </MathJax>
-
+      {metricConstants.determinant && (
+        <DeterminantLatexView determinant={metricConstants.determinant.latex} />
+      )}
+      {metricConstants.inverse && (
+        <InverseLatexView inverse={metricConstants.inverse.latex} />
+      )}
       {metricConstants.partial_derivatives && (
         <PartialDerivativesLatexView
           partial_derivatives={metricConstants.partial_derivatives.latex}
