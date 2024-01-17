@@ -95,22 +95,25 @@ function MetricView({ metric }) {
           );
         })}
       </Grid>
-      <div className="flex flex-row gap-6 justify-end">
-        <input
-          defaultValue={newName}
-          id="name"
-          className="bg-neutral-800 p-2"
-          onChange={(event) => setNewName(event.target.value)}
-        ></input>
-        <button
-          type="submit"
-          id="compute-button"
-          className="border-2 border-purple-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-purple-950 to-purple-800
+      <div className="flex flex-row gap-6 w-full justify-between">
+        <div className="flex flex-row gap-6">
+          <input
+            defaultValue={newName}
+            id="name"
+            placeholder="name"
+            className="bg-neutral-800 p-2"
+            onChange={(event) => setNewName(event.target.value)}
+          ></input>
+          <button
+            type="submit"
+            id="compute-button"
+            className="border-2 border-purple-950 rounded-lg px-6 py-2 bg-gradient-to-tr from-purple-950 to-purple-800
     hover:from-purple-800 hover:to-purple-950 hover:border-purple-800
           "
-        >
-          Update
-        </button>
+          >
+            Update
+          </button>
+        </div>
         <button
           type="button"
           onClick={handleDelete}

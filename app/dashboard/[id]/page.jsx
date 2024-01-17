@@ -14,7 +14,7 @@ function Page({ params }) {
     async function fetchData() {
       try {
         const _metric = await getMetric(params.id);
-        console.log(_metric)
+        console.log(_metric);
         setMetric(_metric);
       } catch (error) {
         console.log(error);
@@ -24,17 +24,19 @@ function Page({ params }) {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-row justify-center">
       {session ? (
-        <div>
-          {metric && <MetricView metric={metric} />}
-          </div>
+        metric ? (
+          <div>{metric && <MetricView metric={metric} />}</div>
+        ) : (
+          <p className="pt-12">loading...</p>
+        )
       ) : (
         <div>
           <p>Access Denied</p>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

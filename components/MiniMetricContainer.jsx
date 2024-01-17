@@ -8,7 +8,7 @@ function MiniMetric({ metric }) {
         return (
           <div
             key={index}
-            className="border-2 border-neutral-700 flex flex-row items-center justify-center"
+            className="border-2 border-neutral-700 flex flex-row items-center justify-center  break-all text-center text-sm p-1"
           >
             {entry === "0" ? "" : entry}
           </div>
@@ -18,35 +18,34 @@ function MiniMetric({ metric }) {
   );
 }
 
-function MiniMetricContainer({ metric, coordinates }) {
+function MiniMetricContainer({ name, metric, coordinates }) {
   const shape = metric.length;
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-col font-mono gap-4">
+      <p className="text-xl font-sans">{name}</p>
       {shape === 4 ? (
         <div className="">
           <div className="grid grid-cols-2 grid-rows-2 w-[200px] h-[200px] border-2 border-neutral-600">
             <MiniMetric metric={metric} />
           </div>
-          <CoordinatesContainer coordinates={coordinates} />
         </div>
       ) : shape === 9 ? (
         <div>
           <div className="grid grid-cols-3 grid-rows-3 w-[200px] h-[200px] border-2 border-neutral-600">
             <MiniMetric metric={metric} />
           </div>
-          <CoordinatesContainer coordinates={coordinates} />
         </div>
       ) : shape === 16 ? (
         <div>
           <div className="grid grid-cols-4 grid-rows-4 w-[200px] h-[200px] border-2 border-neutral-600">
             <MiniMetric metric={metric} />
           </div>
-          <CoordinatesContainer coordinates={coordinates} />
         </div>
       ) : (
         <> </>
       )}
+      <CoordinatesContainer coordinates={coordinates} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import MiniMetricContainer from "./MiniMetricContainer";
 import Link from "next/link";
 
 function UserMetrics() {
-  const [userMetrics, setUserMetrics] = useState([]);
+  const [userMetrics, setUserMetrics] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -18,24 +18,32 @@ function UserMetrics() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6">
-      <h2 className="text-2xl font-medium">Your metrics:</h2>
+    <div className="flex flex-col gap-12">
+      <h2 className="text-2xl font-medium">Saved metrics</h2>
       <div className="flex flex-row gap-6">
-        {userMetrics.map((metric, index) => {
-          return (
-            <div key={index} className="w-fit">
-              <Link href={`/dashboard/${metric.id}`}>
-                <p className="text-xl font-medium">{metric.name}</p>
-                <div>
-                  <MiniMetricContainer
-                    metric={metric.value}
-                    coordinates={metric.coordinates}
-                  />
+        {userMetrics ? (
+          userMetrics.length > 0 ? (
+            userMetrics.map((metric, index) => {
+              return (
+                <div key={index} className="w-fit">
+                  <Link href={`/dashboard/${metric.id}`}>
+                    <div>
+                      <MiniMetricContainer
+                        name={metric.name}
+                        metric={metric.value}
+                        coordinates={metric.coordinates}
+                      />
+                    </div>
+                  </Link>
                 </div>
-              </Link>
-            </div>
-          );
-        })}
+              );
+            })
+          ) : (
+            <p>Empty</p>
+          )
+        ) : (
+          <p>loading...</p>
+        )}
       </div>
     </div>
   );
