@@ -5,11 +5,9 @@ import ResultJson from "./ResultJson";
 import Log from "./Log";
 import CoordinatesForm from "./CoordinatesForm";
 import MetricForm from "./MetricForm";
-import DerivativesView from "./ResultView/DerivativesView";
-import InverseView from "./ResultView/InverseView";
-import ChristoffelView from "./ResultView/ChristoffelView";
 import ResultView from "./ResultView/ResultView";
 import ShapeSelector from "./ShapeSelector";
+import ResultLatexView from "./ResultLatexView/ResultLatexView";
 
 function MetricContainer() {
   const [entries, setEntries] = useState(Array(9).fill(""));
@@ -57,11 +55,12 @@ function MetricContainer() {
             <span>- Supports functions: cos, sin, tan, exp, log, gamma...</span>
           </ul>
 
+          <ResultLatexView metricConstants={metricConstants} coordinates={coordinates} />
           <ResultJson metricConstants={metricConstants} setBuffer={setBuffer} />
         </div>
       </div>
 
-      <ResultView metricConstants={metricConstants} coordinates={coordinates} />
+      {/* <ResultView metricConstants={metricConstants} coordinates={coordinates} /> */}
     </div>
   );
 }

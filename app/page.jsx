@@ -2,10 +2,14 @@
 
 import MetricContainer from "../components/MetricContainer";
 
+import { MathJax, MathJaxContext } from "better-react-mathjax";
+
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center gap-12">
-      <MetricContainer />
+      <MathJaxContext>
+        <MetricContainer />
+      </MathJaxContext>
     </main>
   );
 }
