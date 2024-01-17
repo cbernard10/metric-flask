@@ -9,6 +9,7 @@ import DerivativesView from "./ResultView/DerivativesView";
 import InverseView from "./ResultView/InverseView";
 import ChristoffelView from "./ResultView/ChristoffelView";
 import ResultView from "./ResultView/ResultView";
+import ShapeSelector from "./ShapeSelector";
 
 function MetricContainer() {
   const [entries, setEntries] = useState(Array(9).fill(""));
@@ -22,39 +23,19 @@ function MetricContainer() {
       <div className="flex xl:flex-row flex-col gap-6 items-center xl:items-start">
         <div className="flex flex-col gap-6 xl:items-end items-center">
           <div className="flex flex-col gap-6 justify-end items-end">
-            <div className="flex flex-row justify-end items-center gap-6">
-              <span>Shape</span>
-              <div className="flex flex-row">
-                {[2, 3, 4].map((dimension, index) => {
-                  return (
-                    <button
-                      key={index}
-                      id={`shape-${dimension}`}
-                      className={`${
-                        entries.length === dimension ** 2
-                          ? "bg-violet-700"
-                          : "bg-neutral-800"
-                      } w-10 h-10 flex flex-row items-center justify-center border-2 border-transparent hover:border-neutral-600`}
-                      onClick={() => {
-                        setShape(dimension);
-                        setCoordinates(
-                          ["x", "y", "z", "t"].slice(0, dimension)
-                        );
-                        setEntries(Array(dimension ** 2).fill(""));
-                        setMetricConstants({});
-                      }}
-                    >
-                      {dimension}
-                    </button>
-                  );
-                })}
-              </div>
+            <div className="flex flex-row justify-between w-full">
+              <ShapeSelector
+                entries={entries}
+                setShape={setShape}
+                setCoordinates={setCoordinates}
+                setEntries={setEntries}
+                setMetricConstants={setMetricConstants}
+              />
+              <CoordinatesForm
+                coordinates={coordinates}
+                setCoordinates={setCoordinates}
+              />
             </div>
-
-            <CoordinatesForm
-              coordinates={coordinates}
-              setCoordinates={setCoordinates}
-            />
             <MetricForm
               entries={entries}
               setEntries={setEntries}
@@ -69,7 +50,9 @@ function MetricContainer() {
         </div>
         <div className="flex flex-col gap-6">
           <ul className="flex flex-col bg-neutral-950 p-2 gap-2 w-fit">
-            <span className="text-lg font-medium pb-2">Symbolic computation of metric tensors with sympy</span>
+            <span className="text-lg font-medium pb-2">
+              Symbolic computation of metric tensors with sympy
+            </span>
             <span>- Change cells with tab and shift-tab</span>
             <span>- Supports functions: cos, sin, tan, exp, log, gamma...</span>
           </ul>
