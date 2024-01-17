@@ -1,28 +1,49 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import ResultJson from "./ResultJson";
 import Log from "./Log";
 import CoordinatesForm from "./CoordinatesForm";
 import MetricForm from "./MetricForm";
-import ResultView from "./ResultView/ResultView";
 import ShapeSelector from "./ShapeSelector";
-import ResultLatexView from "./ResultLatexView/ResultLatexView";
 import ResultContainer from "./ResultContainer";
+import MetricSelector from "./MetricSelector";
+import { useSession } from "next-auth/react";
+import { getUserMetrics } from "../services/userMetricsService";
+import { useEffect } from "react";
 
 function MetricContainer() {
+  const { data: session } = useSession();
+  const [userMetrics, setUserMetrics] = useState(null);
   const [entries, setEntries] = useState(Array(9).fill(""));
   const [metricConstants, setMetricConstants] = useState({});
   const [coordinates, setCoordinates] = useState(["x", "y", "z"]);
   const [buffer, setBuffer] = useState([]);
   const [shape, setShape] = useState(3);
 
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getUserMetrics();
+      setUserMetrics(data.metrics);
+      console.log(data.metrics);
+    }
+    session && fetchData();
+  }, [session]);
+
+
   return (
     <div className="flex flex-col gap-12 max-w-[80%] mx-auto py-20 w-full">
       <div className="flex xl:flex-row flex-col gap-6 items-start justify-center">
-
         <div className="flex flex-col gap-6 xl:items-end items-center">
           <div className="flex flex-col gap-6 justify-end items-end">
+            {userMetrics && (
+              <MetricSelector
+                userMetrics={userMetrics}
+                setUserMetrics={setUserMetrics}
+                setEntries={setEntries}
+                setCoordinates={setCoordinates}
+                setShape={setShape}
+              />
+            )}
             <div className="flex flex-row justify-between w-full">
               <ShapeSelector
                 entries={entries}
@@ -41,6 +62,7 @@ function MetricContainer() {
               setEntries={setEntries}
               metricConstants={metricConstants}
               setMetricConstants={setMetricConstants}
+              setUserMetrics={setUserMetrics}
               setBuffer={setBuffer}
               coordinates={coordinates}
               shape={shape}
@@ -56,13 +78,15 @@ function MetricContainer() {
             </span>
             <span>- Change cells with tab and shift-tab</span>
             <span>- Supports functions: cos, sin, tan, exp, log, gamma...</span>
-          </ul> 
+          </ul>
 
-          <ResultContainer metricConstants={metricConstants} coordinates={coordinates} setBuffer={setBuffer} />
-          
+          <ResultContainer
+            metricConstants={metricConstants}
+            coordinates={coordinates}
+            setBuffer={setBuffer}
+          />
         </div>
       </div>
-
     </div>
   );
 }

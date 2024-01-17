@@ -4,15 +4,16 @@ import { useSession } from "next-auth/react";
 import { save } from "../services/metricService";
 import { useState } from "react";
 
-function Save({ metric, coordinates, log }) {
+function Save({ metric, coordinates, log, setUserMetrics }) {
   const { data: session } = useSession();
   const [name, setName] = useState("");
 
   const handleSaveMetric = async (event) => {
-    console.log("saving metric", name, metric)
+    console.log("saving metric", name, metric);
     event.preventDefault();
     await save(name, metric, coordinates, session.user.email);
-    log(`saved ${name}`, "success")
+    setUserMetrics((prev) => [...prev, { name, coordinates, value: metric }]);
+    log(`saved ${name}`, "success");
   };
 
   return (
