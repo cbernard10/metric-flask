@@ -5,8 +5,7 @@ describe("metrics", function () {
 
   it("front page can be opened", function () {
     cy.visit("http://localhost:3000");
-    cy.contains("Shape");
-    cy.contains("Coordinates");
+    cy.contains("Symbolic computation of metric tensors with sympy");
   });
 
   it("shape can be changed", function () {

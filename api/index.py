@@ -82,21 +82,31 @@ async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
     trace = str(sp.trace(metric))
-    return {"trace": trace}
+    return {"trace": {
+        "value": trace,
+        "latex": sp.latex(trace)
+    }}
 
 @app.post("/api/determinant")
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
     determinant = str(sp.simplify(sp.det(metric)))
-    return {"determinant": determinant}
+    return {"determinant": {
+        "value": determinant,
+        "latex": sp.latex(determinant)
+    }}
 
 @app.post("/api/inverse")
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
-    inverse = str(sp.simplify(metric.inv()).tolist())
-    return {"inverse": inverse}
+    inverse = sp.simplify(metric.inv())
+    strInverse = str(inverse.tolist())
+    return {"inverse": {
+        "value": strInverse,
+        "latex": sp.latex(inverse)
+    }}
 
 @app.post("/api/transpose")
 async def get_body(req: Request):
@@ -111,21 +121,23 @@ async def get_body(req: Request):
     metric, coords, _  = extractMatrixAndCoords(body)   
     shape = len(coords)
 
-    dg_array = np.empty((shape,shape,shape), dtype=object)
+    # dg_array = np.empty((shape,shape,shape), dtype=object)
+    dg_array=[sp.zeros(shape, shape) for _ in range(shape)]
 
     for i in range(shape):
         for j in range(shape):
             for k in range(shape):
-                    
-                    dg_array[i,j,k] = dg(metric, coords, i, j, k)
 
-    print(dg_array)
+                    dg_array[k][i,j] = dg(metric, coords, i, j, k)
 
+    formattedValue = { coords[i]: str(dg_array[i].tolist()) for i in range(shape) }
+    formattedLatex = {coords[i]: sp.latex(dg_array[i]) for i in range(shape) }
     return {
         "partial_derivatives": {
-            coords[i]: str(dg_array[...,i].tolist()) for i in range(shape)
-            }
+            "value": formattedValue,
+            "latex": formattedLatex
         }
+    }
 
 @app.post("/api/christoffel_1")
 async def get_body(req: Request):
@@ -146,10 +158,14 @@ async def get_body(req: Request):
                 res=str(sp.simplify(res))
 
                 christoffel_1_arrays[k][i,j] = res
+
+    formattedValue = { coords[i]: str(christoffel_1_arrays[i].tolist()) for i in range(shape) }
+    formattedLatex = {coords[i]: sp.latex(christoffel_1_arrays[i]) for i in range(shape) }
                     
     return {
         "christoffel_1": {
-            coords[i]: str(christoffel_1_arrays[i].tolist()) for i in range(shape)
+            "value": formattedValue,
+            "latex": formattedLatex
             }
         }
 

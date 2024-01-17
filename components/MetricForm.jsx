@@ -58,9 +58,15 @@ function MetricForm({
       log("cannot inverse matrix: determinant is 0", "error");
     }
     const partial_derivatives = await addValue("partial_derivatives");
-    await addValue("christoffel_1", partial_derivatives.partial_derivatives);
+    await addValue(
+      "christoffel_1",
+      partial_derivatives.partial_derivatives.value
+    );
     try {
-      await addValue("christoffel_2", partial_derivatives.partial_derivatives);
+      await addValue(
+        "christoffel_2",
+        partial_derivatives.partial_derivatives.value
+      );
     } catch (error) {
       log(
         "error computing christoffel symbols of the second kind: metric is not invertible",
@@ -101,7 +107,12 @@ function MetricForm({
         })}
       </Grid>
       <div className="flex flex-row gap-4 justify-end w-full">
-        <Save metric={entries} metricConstants={metricConstants} coordinates={coordinates} log={log} />
+        <Save
+          metric={entries}
+          metricConstants={metricConstants}
+          coordinates={coordinates}
+          log={log}
+        />
         <button
           type="submit"
           id="compute-button"
