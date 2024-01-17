@@ -8,7 +8,7 @@ import InverseLatexView from "./InverseLatexView";
 
 function ResultLatexView({ metricConstants, coordinates }) {
   return (
-    <div className="text-xl flex flex-col gap-6">
+    <div className="text-2xl flex flex-col gap-6">
       {metricConstants.trace && (
         <TraceLatexView trace={metricConstants.trace.latex} />
       )}
@@ -33,7 +33,7 @@ function ResultLatexView({ metricConstants, coordinates }) {
       )}
       {metricConstants.christoffel_2 && (
         <ChristoffelSymbolsLatexView
-          christoffel_symbols={metricConstants.christoffel_1.latex}
+          christoffel_symbols={metricConstants.christoffel_2.latex}
           coordinates={coordinates}
           type={2}
         />

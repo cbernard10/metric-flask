@@ -7,7 +7,7 @@ function ChristoffelSymbolsLatexView({
   type,
 }) {
   return (
-    <div className="flex flex-row gap-6">
+    <div className="grid grid-cols-1 gap-6">
       {coordinates.map((coordinate, index) => {
         return (
           <div key={index}>

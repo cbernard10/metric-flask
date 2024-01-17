@@ -57,14 +57,18 @@ def christ2(g, coords, i, j, k):
 def christoffel_symbols(g, coords):
 
     dim = len(coords)
-    mat = np.zeros((dim, dim, dim), dtype=object)
+    # mat = np.zeros((dim, dim, dim), dtype=object)
+
+    shape = len(coords)
+    christoffel_2_arrays = [sp.zeros(shape, shape) for _ in range(shape)]
 
     for i in range(dim):
         for j in range(dim):
             for k in range(dim):
-                mat[i, j, k] = christ2(g, coords, i, j, k)
+                # mat[i, j, k] = christ2(g, coords, i, j, k)
+                christoffel_2_arrays[k][i,j] = christ2(g, coords, i, j, k)
 
-    return mat
+    return christoffel_2_arrays
 
 @app.get("/api/ping")
 def ping():
@@ -81,9 +85,11 @@ def sympy_test():
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
-    trace = str(sp.trace(metric))
+    trace = sp.trace(metric)
+
+    
     return {"trace": {
-        "value": trace,
+        "value": str(trace),
         "latex": sp.latex(trace)
     }}
 
@@ -91,9 +97,9 @@ async def get_body(req: Request):
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
-    determinant = str(sp.simplify(sp.det(metric)))
+    determinant = sp.simplify(sp.det(metric))
     return {"determinant": {
-        "value": determinant,
+        "value": str(determinant),
         "latex": sp.latex(determinant)
     }}
 
@@ -182,9 +188,14 @@ async def get_body(req: Request):
     
     res = christoffel_symbols(metric, coords)
 
+    formattedValue = { coords[i]: str(res[i].tolist()) for i in range(shape) }
+    formattedLatex = {coords[i]: sp.latex(res[i]) for i in range(shape) }
+
     return {
         "christoffel_2": {
-            coords[i]: str(res[i].tolist()) for i in range(shape)
+            "value": formattedValue,
+            "latex": formattedLatex
             }
-        } 
+        }
+
     

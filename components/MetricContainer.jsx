@@ -8,6 +8,7 @@ import MetricForm from "./MetricForm";
 import ResultView from "./ResultView/ResultView";
 import ShapeSelector from "./ShapeSelector";
 import ResultLatexView from "./ResultLatexView/ResultLatexView";
+import ResultContainer from "./ResultContainer";
 
 function MetricContainer() {
   const [entries, setEntries] = useState(Array(9).fill(""));
@@ -17,8 +18,9 @@ function MetricContainer() {
   const [shape, setShape] = useState(3);
 
   return (
-    <div className="flex flex-col gap-12 max-w-[80%] mx-auto py-20">
-      <div className="flex xl:flex-row flex-col gap-6 items-center xl:items-start">
+    <div className="flex flex-col gap-12 max-w-[80%] mx-auto py-20 w-full">
+      <div className="flex xl:flex-row flex-col gap-6 items-start justify-center">
+
         <div className="flex flex-col gap-6 xl:items-end items-center">
           <div className="flex flex-col gap-6 justify-end items-end">
             <div className="flex flex-row justify-between w-full">
@@ -46,21 +48,21 @@ function MetricContainer() {
           </div>
           <Log buffer={buffer}></Log>
         </div>
-        <div className="flex flex-col gap-6">
-          <ul className="flex flex-col bg-neutral-950 p-2 gap-2 w-fit">
+
+        <div className="flex flex-col gap-6 w-[50%]">
+          <ul className="flex flex-col bg-neutral-950 p-2 gap-2">
             <span className="text-lg font-medium pb-2">
               Symbolic computation of metric tensors with sympy
             </span>
             <span>- Change cells with tab and shift-tab</span>
             <span>- Supports functions: cos, sin, tan, exp, log, gamma...</span>
-          </ul>
+          </ul> 
 
-          <ResultLatexView metricConstants={metricConstants} coordinates={coordinates} />
-          <ResultJson metricConstants={metricConstants} setBuffer={setBuffer} />
+          <ResultContainer metricConstants={metricConstants} coordinates={coordinates} setBuffer={setBuffer} />
+          
         </div>
       </div>
 
-      {/* <ResultView metricConstants={metricConstants} coordinates={coordinates} /> */}
     </div>
   );
 }

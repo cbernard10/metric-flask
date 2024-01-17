@@ -5,7 +5,7 @@ import ChristoffelView from "./ChristoffelView";
 
 function ResultView({ metricConstants, coordinates }) {
   return (
-    <div className="flex flex-row flex-wrap gap-6 max-w-[80%] mx-auto">
+    <div className="flex flex-row flex-wrap gap-6">
       {metricConstants.inverse && (
         <InverseView
           inverse={metricConstants.inverse.value}
