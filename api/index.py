@@ -81,9 +81,10 @@ def sympy_test():
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
-    trace = str(sp.trace(metric))
+    trace = sp.trace(metric)
+    strTrace = str(trace)
     return {"trace": {
-        "value": trace,
+        "value": strTrace,
         "latex": sp.latex(trace)
     }}
 
@@ -91,9 +92,10 @@ async def get_body(req: Request):
 async def get_body(req: Request):
     body = await req.json()
     metric, _, _ = extractMatrixAndCoords(body)
-    determinant = str(sp.simplify(sp.det(metric)))
+    determinant = sp.simplify(sp.det(metric))
+    strDeterminant = str(determinant)
     return {"determinant": {
-        "value": determinant,
+        "value": strDeterminant,
         "latex": sp.latex(determinant)
     }}
 
