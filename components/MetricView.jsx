@@ -95,13 +95,13 @@ function MetricView({ metric }) {
           );
         })}
       </Grid>
-      <div className="flex flex-row gap-6 w-full justify-between">
+      <div className="flex flex-col gap-6 justify-between w-full">
         <div className="flex flex-row gap-6">
           <input
             defaultValue={newName}
             id="name"
             placeholder="name"
-            className="bg-neutral-800 p-2"
+            className="bg-neutral-800 p-2 flex-1"
             onChange={(event) => setNewName(event.target.value)}
           ></input>
           <button

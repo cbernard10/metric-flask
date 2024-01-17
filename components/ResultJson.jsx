@@ -13,9 +13,9 @@ function ResultJson({ metricConstants }) {
   }
 
   return (
-    <div className="gap-6 flex flex-col items-start">
+    <div className="gap-6 flex flex-col items-start w-full">
       <div className="font-mono text-start bg-neutral-950 w-full">
-        <pre className="text-white text-xs md:text-sm lg:text-base xl:text-lg">
+        <pre className="text-white text-sm md:text-sm lg:text-base xl:text-lg">
           {JSON.stringify(keepValues(metricConstants), null, 2)}
         </pre>
       </div>

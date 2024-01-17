@@ -18,9 +18,9 @@ function UserMetrics() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-12 px-16">
       <h2 className="text-2xl font-medium">Saved metrics</h2>
-      <div className="flex flex-row gap-6">
+      <div className="flex md:flex-row flex-col gap-6">
         {userMetrics ? (
           userMetrics.length > 0 ? (
             userMetrics.map((metric, index) => {

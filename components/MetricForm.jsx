@@ -107,7 +107,7 @@ function MetricForm({
           );
         })}
       </Grid>
-      <div className="flex flex-row gap-4 justify-between w-full">
+      <div className="flex flex-col gap-4 justify-between w-full">
         <Save
           metric={entries}
           metricConstants={metricConstants}

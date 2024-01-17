@@ -18,8 +18,8 @@ function ShapeSelector({
               className={`${
                 entries.length === dimension ** 2
                   ? "bg-violet-700"
-                  : "bg-neutral-800"
-              } w-10 h-10 flex flex-row items-center justify-center border-2 border-transparent hover:border-neutral-600`}
+                  : "bg-neutral-900"
+              } w-10 h-10 flex flex-row items-center justify-center border-transparent hover:border-neutral-600 border-2`}
               onClick={() => {
                 setShape(dimension);
                 setCoordinates(["x", "y", "z", "t"].slice(0, dimension));
@@ -27,7 +27,7 @@ function ShapeSelector({
                 setMetricConstants({});
               }}
             >
-              {dimension}x{dimension}
+              {dimension}
             </button>
           );
         })}

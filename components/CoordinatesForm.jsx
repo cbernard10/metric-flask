@@ -4,12 +4,12 @@ function CoordinatesForm({ coordinates, setCoordinates }) {
   return (
     <form className="bg-black flex flex-row gap-6 items-center w-fit">
       {/* <label>Coordinates</label> */}
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-[2px]" >
         {coordinates.map((coordinate, index) => {
           return (
             <input
-              className="w-16 border-[1px] py-2 border-neutral-600 bg-neutral-900 flex justify-center items-center text-center font-mono outline-none
-              focus:border-violet-700 focus:bg-violet-950
+              className="w-10 py-2  bg-neutral-900 flex justify-center items-center text-center font-mono outline-none
+              focus:border-violet-800 focus:bg-violet-800
               "
               key={index}
               type="text"

@@ -18,7 +18,7 @@ function ResultContainer({ metricConstants, coordinates, setBuffer }) {
   const [selected, setSelected] = useState(0);
 
   return (
-    <div className="flex flex-col items-start justify-start gap-6">
+    <div className="flex flex-col items-start justify-start gap-6 w-full">
       <div className="flex flex-row gap-1">
         <button
           className={`border-2 border-transparent hover:border-neutral-600 p-1 ${
@@ -45,7 +45,7 @@ function ResultContainer({ metricConstants, coordinates, setBuffer }) {
           Arrays
         </button>
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 items-center justify-center w-full">
         {selected === 0 && (
           <ResultJson metricConstants={metricConstants} setBuffer={setBuffer} />
         )}

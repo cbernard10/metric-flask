@@ -15,9 +15,8 @@ export default function Header() {
     >
       {session ? (
         <>
-          <div className="flex flex-row items-center gap-6 justify-center w-full relative py-2">
-            {/* <div className="flex-1"></div> */}
-            <div className="flex flex-row gap-6">
+          <div className="flex flex-row items-center gap-6 justify-between md:justify-center w-full relative py-2">
+            <div className="flex flex-row gap-6 text-sm sm:text-base">
               <Link
                 href="/"
                 className="hover:text-violet-400 border-b-2 border-transparent hover:border-violet-400"
@@ -31,13 +30,14 @@ export default function Header() {
                 Dashboard
               </Link>
             </div>
-            <div className="flex flex-row items-center gap-6 absolute right-0">
-              <span>{session.user.name}</span>
+            <div className="flex flex-row items-center gap-6 absolute right-0 ">
+              <span className="hidden sm:block">{session.user.name}</span>
               <img
                 src={session.user.image}
                 className="w-12 h-12 rounded-full"
                 alt="user image"
               />
+
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
                 className="bg-black text-white rounded-md py-2 px-6 border-white border-2
@@ -45,6 +45,7 @@ export default function Header() {
               >
                 Sign out
               </button>
+              
             </div>
           </div>
         </>

@@ -8,7 +8,7 @@ import InverseLatexView from "./InverseLatexView";
 
 function ResultLatexView({ metricConstants, coordinates }) {
   return (
-    <div className="text-2xl flex flex-col gap-6">
+    <div className=" text-md md:text-2xl flex flex-col gap-6 bg-neutral-950 w-full items-start p-2">
       {metricConstants.trace && (
         <TraceLatexView trace={metricConstants.trace.latex} />
       )}

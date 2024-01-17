@@ -22,7 +22,9 @@ function MiniMetricContainer({ name, metric, coordinates }) {
   const shape = metric.length;
 
   return (
-    <div className="flex flex-col font-mono gap-4">
+    <div className="flex flex-col font-mono gap-4 bg-neutral-950 bg-opacity-70 p-6 rounded-md border-2 border-transparent hover:border-violet-900
+        active:border-violet-900 transition duration-50 ease-in-out focus:border-violet-900
+    ">
       <p className="text-xl font-sans">{name}</p>
       {shape === 4 ? (
         <div className="">

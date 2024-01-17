@@ -31,10 +31,10 @@ function MetricContainer() {
 
 
   return (
-    <div className="flex flex-col gap-12 max-w-[80%] mx-auto py-20 w-full">
-      <div className="flex xl:flex-row flex-col gap-6 items-start justify-center">
+    <div className="flex flex-col gap-12 max-w-[80%] mx-auto py-6 md:py-20 w-full">
+      <div className="flex lg:flex-row flex-col gap-6 lg:items-start justify-center">
         <div className="flex flex-col gap-6 xl:items-end items-center">
-          <div className="flex flex-col gap-6 justify-end items-end">
+          <div className="flex flex-col gap-2 justify-start sm:justify-end items-start sm:items-end ">
             {userMetrics && (
               <MetricSelector
                 userMetrics={userMetrics}
@@ -44,7 +44,7 @@ function MetricContainer() {
                 setShape={setShape}
               />
             )}
-            <div className="flex flex-row justify-between w-full">
+            <div className="flex items-start gap-2 flex-row sm:items-end justify-between w-full">
               <ShapeSelector
                 entries={entries}
                 setShape={setShape}
@@ -57,6 +57,7 @@ function MetricContainer() {
                 setCoordinates={setCoordinates}
               />
             </div>
+
             <MetricForm
               entries={entries}
               setEntries={setEntries}
@@ -71,8 +72,8 @@ function MetricContainer() {
           <Log buffer={buffer}></Log>
         </div>
 
-        <div className="flex flex-col gap-6 w-[50%]">
-          <ul className="flex flex-col bg-neutral-950 p-2 gap-2">
+        <div className="flex flex-col gap-6 w-full lg:w-[50%] items-start lg:items-start w-full">
+          <ul className="hidden lg:flex flex-col bg-neutral-950 p-2 gap-2">
             <span className="text-lg font-medium pb-2">
               Symbolic computation of metric tensors with sympy
             </span>

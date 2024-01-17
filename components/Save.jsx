@@ -19,11 +19,11 @@ function Save({ metric, coordinates, log, setUserMetrics }) {
   return (
     <>
       {session && (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 w-full">
           <input
             id="name"
             placeholder="name"
-            className="bg-neutral-800 p-2"
+            className="bg-neutral-800 p-2 flex-1"
             onChange={(event) => setName(event.target.value)}
           ></input>
           <button

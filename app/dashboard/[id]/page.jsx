@@ -24,7 +24,7 @@ function Page({ params }) {
   }, []);
 
   return (
-    <div className="flex flex-row justify-center">
+    <div className="flex flex-row justify-center px-6">
       {session ? (
         metric ? (
           <div>{metric && <MetricView metric={metric} />}</div>
