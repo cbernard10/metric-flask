@@ -1,5 +1,4 @@
 import React from "react";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
 import PartialDerivativesLatexView from "./PartialDerivativesLatexView";
 import ChristoffelSymbolsLatexView from "./ChristoffelSymbolsLatexView";
 import TraceLatexView from "./TraceLatexView";

@@ -14,8 +14,12 @@ export const get = async (what, arr, coords, partial_derivatives) => {
 };
 
 export const save = async (name, metric, coordinates, userEmail) => {
+  let _metric = metric.map((m) => {
+    return m === "" ? "0" : m;
+  });
+
   const res = await axios.post(`/api/metric`, {
-    metric,
+    metric: _metric,
     coordinates,
     name,
     userEmail,

@@ -22,6 +22,7 @@ app.add_middleware(
 
 def extractMatrixAndCoords(body):
     metric = body['metric']
+    metric = [metric[i] if metric[i] != '' else '0' for i in range(len(metric))]
     metric = sp.Matrix(metric)
     coords = body['coords']
     shape = len(coords)

@@ -5,15 +5,6 @@ import ResultJson from "./ResultJson";
 import ResultLatexView from "./ResultLatexView/ResultLatexView";
 import ResultView from "./ResultView/ResultView";
 
-{
-  /* <ResultLatexView metricConstants={metricConstants} coordinates={coordinates} />
-<ResultJson metricConstants={metricConstants} setBuffer={setBuffer} />
-</div>
-</div>
-
-<ResultView metricConstants={metricConstants} coordinates={coordinates} /> */
-}
-
 function ResultContainer({ metricConstants, coordinates, setBuffer }) {
   const [selected, setSelected] = useState(0);
 

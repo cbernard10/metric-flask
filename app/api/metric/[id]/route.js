@@ -1,8 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 const Metric = require("../../../../models/metric");
-const User = require("../../../../models/user");
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import dbConnect from "../../../../lib/dbConnect";
 
 export async function GET(req, { params }) {

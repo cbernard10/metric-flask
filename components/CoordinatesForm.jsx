@@ -3,7 +3,6 @@ import React from "react";
 function CoordinatesForm({ coordinates, setCoordinates }) {
   return (
     <form className="bg-black flex flex-row gap-6 items-center w-fit">
-      {/* <label>Coordinates</label> */}
       <div className="flex flex-row gap-[2px]" >
         {coordinates.map((coordinate, index) => {
           return (

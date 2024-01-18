@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -7,9 +6,6 @@ import { Analytics } from "@vercel/analytics/react";
 import NextAuthSessionProvider from "../providers/SessionProvider";
 import { Hanken_Grotesk } from "next/font/google";
 import Header from "../components/Header";
-import Script from "next/script";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const hkgrotestk = Hanken_Grotesk({ subsets: ["latin"] });
 

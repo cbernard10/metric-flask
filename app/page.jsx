@@ -2,7 +2,7 @@
 
 import MetricContainer from "../components/MetricContainer";
 
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { MathJaxContext } from "better-react-mathjax";
 
 export default function Home() {
   return (

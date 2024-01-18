@@ -4,7 +4,6 @@ import { useState } from "react";
 import Select from "react-select";
 
 function MetricSelector({ userMetrics, setEntries, setCoordinates, setShape }) {
-  const [collapsed, setCollapsed] = useState(true);
   const [options, setOptions] = useState(null);
   const [selected, setSelected] = useState(null);
 
